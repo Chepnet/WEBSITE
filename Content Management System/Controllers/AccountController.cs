@@ -79,7 +79,8 @@ namespace Content_Management_System.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    
+                    return RedirectToAction("Index","FarmersTrainings");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -163,7 +164,7 @@ namespace Content_Management_System.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
                 AddErrors(result);
             }
@@ -357,6 +358,7 @@ namespace Content_Management_System.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Manage");
+               // return RedirectToAction("Index", "FarmersTrainings");
             }
 
             if (ModelState.IsValid)
@@ -392,7 +394,7 @@ namespace Content_Management_System.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "FarmersTrainings");
         }
 
         //
